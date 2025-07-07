@@ -652,6 +652,67 @@
         html {
             scroll-behavior: smooth;
         }
+/* Add this CSS after your existing styles */
+.hero {
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    overflow: hidden;
+}
+.hero-carousel-img-wrapper {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+.hero-carousel-img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    transition: transform 6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+.carousel-item.active .hero-carousel-img,
+.carousel-item-next .hero-carousel-img,
+.carousel-item-prev .hero-carousel-img {
+    animation: heroZoom 6s linear forwards;
+}
+@keyframes heroZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.12); }
+}
+.hero-carousel-caption {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+.hero-content {
+    pointer-events: auto;
+    background: rgba(10,10,10,0.35);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+@media (max-width: 768px) {
+    .hero-carousel-img-wrapper, .hero-carousel-img {
+        height: 350px;
+        min-height: 350px;
+    }
+    .hero-carousel-caption {
+        align-items: flex-end;
+        padding-bottom: 2rem;
+    }
+    .hero-content {
+        padding: 1.2rem 1rem;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -688,21 +749,51 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="hero-content">
-                        <h1>Find Your Perfect Companion</h1>
-                        <p>Give a loving home to adorable puppies waiting for their forever family. Every puppy deserves love, care, and a warm home.</p>
-                        <button class="btn btn-hero" onclick="document.getElementById('puppies').scrollIntoView()">
-                            <i class="fas fa-paw"></i> Adopt Now
-                        </button>
-                    </div>
+  <!-- ...existing code... -->
+<!-- Hero Section -->
+<section id="home" class="hero position-relative">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="hero-carousel-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="d-block w-100 hero-carousel-img" alt="Dog 1">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-carousel-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="d-block w-100 hero-carousel-img" alt="Dog 2">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-carousel-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="d-block w-100 hero-carousel-img" alt="Dog 3">
                 </div>
             </div>
         </div>
-    </section>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+    <div class="container hero-carousel-caption">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="hero-content">
+                    <h1>Find Your Perfect Companion</h1>
+                    <p>Give a loving home to adorable puppies waiting for their forever family. Every puppy deserves love, care, and a warm home.</p>
+                    <button class="btn btn-hero" onclick="document.getElementById('puppies').scrollIntoView()">
+                        <i class="fas fa-paw"></i> Adopt Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ...existing code... -->
+
+
 
     <!-- Puppies Section -->
     <section id="puppies" class="puppies-section">
